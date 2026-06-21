@@ -1,11 +1,15 @@
-import { ArrowLeft, CheckCircle2, Clock3, Layers3 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock3, Layers3, Star } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 import { demoCourses } from "../data/demoData";
+import { useDemoSession } from "../state/DemoSessionContext";
 
 export function CourseDetailPage() {
   const { courseId } = useParams();
+  const { courseProgress, markCourseOpened, markCourseCompleted, wishlist, toggleWishlist } =
+    useDemoSession();
   const course = demoCourses.find((item) => item.id === courseId) ?? demoCourses[0];
+  const progress = courseProgress[course.id] ?? course.progress;
 
   return (
     <main className="mobile-page">
@@ -22,7 +26,16 @@ export function CourseDetailPage() {
 
         <div className="page-content">
           <section className="hero-panel">
-            <span className="course-pill">{course.category}</span>
+            <div className="course-detail-top">
+              <span className="course-pill">{course.primarySkill}</span>
+              <button
+                type="button"
+                className={`wishlist-button ${wishlist.includes(course.id) ? "active" : ""}`}
+                onClick={() => toggleWishlist(course.id)}
+              >
+                <Star size={16} />
+              </button>
+            </div>
             <h2>{course.description}</h2>
             <div className="detail-metrics">
               <div>
@@ -35,8 +48,27 @@ export function CourseDetailPage() {
               </div>
               <div>
                 <CheckCircle2 size={16} />
-                <span>{course.progress}% demo progress</span>
+                <span>{progress}% progress</span>
               </div>
+            </div>
+            <div className="progress-line">
+              <span style={{ width: `${progress}%` }} />
+            </div>
+            <div className="course-card-actions">
+              <button
+                type="button"
+                className="secondary-button small-button"
+                onClick={() => markCourseOpened(course.id)}
+              >
+                Start / Resume
+              </button>
+              <button
+                type="button"
+                className="primary-button small-button"
+                onClick={() => markCourseCompleted(course.id)}
+              >
+                Mark complete
+              </button>
             </div>
           </section>
 

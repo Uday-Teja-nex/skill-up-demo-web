@@ -14,12 +14,14 @@ export type Course = {
   id: string;
   title: string;
   category: string;
+  primarySkill: string;
   duration: string;
   level: string;
   progress: number;
   description: string;
   modules: string[];
   accent: "blue" | "pink" | "green" | "violet";
+  rating: string;
   status: "catalog" | "ongoing" | "completed";
 };
 

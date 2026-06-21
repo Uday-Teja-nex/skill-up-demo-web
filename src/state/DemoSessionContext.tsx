@@ -6,15 +6,22 @@ import type { DemoRole, DemoSession, OnboardingFormData } from "../types";
 type DemoSessionContextValue = {
   session: DemoSession | null;
   onboardingDraft: OnboardingFormData;
+  courseProgress: Record<string, number>;
+  wishlist: string[];
   setOnboardingDraft: (draft: OnboardingFormData) => void;
   signInAs: (mode: DemoRole, email?: string) => void;
   completeOnboarding: (draft: OnboardingFormData) => void;
+  markCourseOpened: (courseId: string) => void;
+  markCourseCompleted: (courseId: string) => void;
+  toggleWishlist: (courseId: string) => void;
   signOut: () => void;
   resetDemo: () => void;
 };
 
 const SESSION_KEY = "skillup-demo-session";
 const DRAFT_KEY = "skillup-demo-draft";
+const PROGRESS_KEY = "skillup-demo-progress";
+const WISHLIST_KEY = "skillup-demo-wishlist";
 
 const DemoSessionContext = createContext<DemoSessionContextValue | null>(null);
 
@@ -23,16 +30,31 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
   const [onboardingDraft, setOnboardingDraftState] = useState<OnboardingFormData>(
     defaultOnboardingData()
   );
+  const [courseProgress, setCourseProgress] = useState<Record<string, number>>({
+    "tailoring-foundations": 65,
+    "tailoring-business": 0,
+    "tailoring-advanced-finishing": 0,
+    "spoken-english-service": 100
+  });
+  const [wishlist, setWishlist] = useState<string[]>(["tailoring-business"]);
 
   useEffect(() => {
     const storedSession = window.localStorage.getItem(SESSION_KEY);
     const storedDraft = window.localStorage.getItem(DRAFT_KEY);
+    const storedProgress = window.localStorage.getItem(PROGRESS_KEY);
+    const storedWishlist = window.localStorage.getItem(WISHLIST_KEY);
 
     if (storedSession) {
       setSession(JSON.parse(storedSession) as DemoSession);
     }
     if (storedDraft) {
       setOnboardingDraftState(JSON.parse(storedDraft) as OnboardingFormData);
+    }
+    if (storedProgress) {
+      setCourseProgress(JSON.parse(storedProgress) as Record<string, number>);
+    }
+    if (storedWishlist) {
+      setWishlist(JSON.parse(storedWishlist) as string[]);
     }
   }, []);
 
@@ -48,6 +70,16 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
   const setOnboardingDraft = (draft: OnboardingFormData) => {
     setOnboardingDraftState(draft);
     window.localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  };
+
+  const persistProgress = (nextProgress: Record<string, number>) => {
+    setCourseProgress(nextProgress);
+    window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(nextProgress));
+  };
+
+  const persistWishlist = (nextWishlist: string[]) => {
+    setWishlist(nextWishlist);
+    window.localStorage.setItem(WISHLIST_KEY, JSON.stringify(nextWishlist));
   };
 
   const signInAs = (mode: DemoRole, email?: string) => {
@@ -88,6 +120,30 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
     window.localStorage.removeItem(DRAFT_KEY);
   };
 
+  const markCourseOpened = (courseId: string) => {
+    const current = courseProgress[courseId] ?? 0;
+    if (current >= 100) return;
+    if (current > 0) return;
+    persistProgress({
+      ...courseProgress,
+      [courseId]: 15
+    });
+  };
+
+  const markCourseCompleted = (courseId: string) => {
+    persistProgress({
+      ...courseProgress,
+      [courseId]: 100
+    });
+  };
+
+  const toggleWishlist = (courseId: string) => {
+    const nextWishlist = wishlist.includes(courseId)
+      ? wishlist.filter((item) => item !== courseId)
+      : [...wishlist, courseId];
+    persistWishlist(nextWishlist);
+  };
+
   const signOut = () => {
     persistSession(null);
   };
@@ -95,7 +151,16 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
   const resetDemo = () => {
     window.localStorage.removeItem(SESSION_KEY);
     window.localStorage.removeItem(DRAFT_KEY);
+    window.localStorage.removeItem(PROGRESS_KEY);
+    window.localStorage.removeItem(WISHLIST_KEY);
     setOnboardingDraftState(defaultOnboardingData());
+    setCourseProgress({
+      "tailoring-foundations": 65,
+      "tailoring-business": 0,
+      "tailoring-advanced-finishing": 0,
+      "spoken-english-service": 100
+    });
+    setWishlist(["tailoring-business"]);
     setSession(null);
   };
 
@@ -103,13 +168,18 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
     () => ({
       session,
       onboardingDraft,
+      courseProgress,
+      wishlist,
       setOnboardingDraft,
       signInAs,
       completeOnboarding,
+      markCourseOpened,
+      markCourseCompleted,
+      toggleWishlist,
       signOut,
       resetDemo
     }),
-    [session, onboardingDraft]
+    [session, onboardingDraft, courseProgress, wishlist]
   );
 
   return <DemoSessionContext.Provider value={value}>{children}</DemoSessionContext.Provider>;

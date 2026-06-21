@@ -60,30 +60,58 @@ export function LoginPage() {
       <div className="auth-blur auth-blur-left" />
       <div className="auth-blur auth-blur-right" />
 
-      <section className="auth-card">
+      <section className="auth-card auth-card-narrow">
         <div className="auth-hero">
           <div className="hero-icon">
             <LogIn size={30} />
           </div>
           <p className="eyebrow">Client demo frontend</p>
-          <h1>Skill Up demo access</h1>
+          <h1>Welcome Back</h1>
           <p className="subtle-copy">
-            This standalone web experience mirrors the app look and user flow without
-            any backend, database, or authentication dependency.
+            Unlock your potential with Skill Up. This demo mirrors the app look,
+            key UI surfaces, and role-based user flow without backend dependencies.
           </p>
         </div>
 
-        <div className="demo-banner">
-          <p>
-            <strong>How to review:</strong> choose a path below to inspect the new
-            learner onboarding, existing learner dashboard, or the admin view.
-          </p>
+        <div className="demo-banner compact-banner">
+          <p><strong>Demo mode:</strong> choose a role below to inspect the onboarding, learner dashboard, or admin view.</p>
           <button type="button" className="text-button" onClick={resetDemo}>
             Reset saved demo state
           </button>
         </div>
 
-        <div className="role-grid">
+        <div className="dev-toggle-panel">
+          <p className="dev-toggle-title">Developer Role Selection</p>
+          <div className="dev-toggle-row">
+            {roleCards.map(({ mode, label }) => (
+              <button
+                key={mode}
+                type="button"
+                className={`dev-toggle-button ${role === mode ? "active" : ""}`}
+                onClick={() => setRole(mode)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {role !== "admin" ? (
+            <label className="field compact-field">
+              <span>Email</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder={
+                  role === "new"
+                    ? "Enter unique email (e.g. tester2@test.com)"
+                    : "Enter the email used when you registered"
+                }
+              />
+            </label>
+          ) : null}
+        </div>
+
+        <div className="role-grid compact-role-grid">
           {roleCards.map(({ mode, label, title, summary, icon: Icon }) => (
             <button
               key={mode}
@@ -101,30 +129,14 @@ export function LoginPage() {
           ))}
         </div>
 
-        <div className="auth-form">
+        <div className="auth-form auth-form-single">
           <div className="form-heading">
             <h3>{activeCard.label} demo</h3>
             <p>{activeCard.summary}</p>
           </div>
 
-          {role !== "admin" && (
-            <label className="field">
-              <span>Email</span>
-              <input
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder={
-                  role === "new"
-                    ? "new-learner@example.org"
-                    : "learner@example.org"
-                }
-              />
-            </label>
-          )}
-
           <button type="button" className="primary-button" onClick={handleContinue}>
-            Continue to demo
+            Continue with Demo
             <ArrowRight size={18} />
           </button>
         </div>

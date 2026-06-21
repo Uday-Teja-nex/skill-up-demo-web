@@ -5,6 +5,7 @@ export const demoCourses: Course[] = [
     id: "tailoring-foundations",
     title: "Tailoring Foundations",
     category: "Tailoring",
+    primarySkill: "Tailoring",
     duration: "6 weeks",
     level: "Beginner",
     progress: 65,
@@ -17,12 +18,14 @@ export const demoCourses: Course[] = [
       "Simple garments and repair work"
     ],
     accent: "pink",
+    rating: "4.8",
     status: "ongoing"
   },
   {
     id: "tailoring-business",
     title: "Tailoring for Small Business",
     category: "Tailoring",
+    primarySkill: "Tailoring",
     duration: "4 weeks",
     level: "Intermediate",
     progress: 0,
@@ -35,12 +38,34 @@ export const demoCourses: Course[] = [
       "Promotion and word-of-mouth growth"
     ],
     accent: "violet",
+    rating: "4.6",
+    status: "catalog"
+  },
+  {
+    id: "tailoring-advanced-finishing",
+    title: "Advanced Finishing and Fitting",
+    category: "Tailoring",
+    primarySkill: "Tailoring",
+    duration: "5 weeks",
+    level: "Intermediate",
+    progress: 0,
+    description:
+      "Practice sleeve finishing, fitting corrections, measurement accuracy, and improved garment quality.",
+    modules: [
+      "Fit correction basics",
+      "Sleeves and finishing",
+      "Alterations and touch-ups",
+      "Quality control checklist"
+    ],
+    accent: "green",
+    rating: "4.7",
     status: "catalog"
   },
   {
     id: "spoken-english-service",
     title: "Spoken English for Service Work",
     category: "Spoken English",
+    primarySkill: "Spoken English",
     duration: "5 weeks",
     level: "Beginner",
     progress: 100,
@@ -53,6 +78,7 @@ export const demoCourses: Course[] = [
       "Polite follow-ups"
     ],
     accent: "blue",
+    rating: "4.5",
     status: "completed"
   }
 ];

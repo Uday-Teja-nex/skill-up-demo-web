@@ -115,6 +115,10 @@ button {
   gap: 24px;
 }
 
+.auth-card.auth-card-narrow {
+  width: min(440px, 100%);
+}
+
 .auth-hero {
   display: grid;
   gap: 12px;
@@ -188,6 +192,10 @@ button {
   border-radius: var(--radius-md);
 }
 
+.compact-banner {
+  padding: 14px 16px;
+}
+
 .text-button {
   color: var(--primary);
   font-weight: 700;
@@ -197,6 +205,10 @@ button {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+}
+
+.compact-role-grid {
+  grid-template-columns: 1fr;
 }
 
 .role-card {
@@ -262,6 +274,10 @@ button {
   align-items: end;
 }
 
+.auth-form.auth-form-single {
+  grid-template-columns: 1fr;
+}
+
 .form-heading {
   display: grid;
   gap: 8px;
@@ -301,6 +317,10 @@ button {
 .field textarea {
   min-height: 92px;
   resize: vertical;
+}
+
+.compact-field input {
+  padding: 12px 14px;
 }
 
 .field small {
@@ -377,6 +397,47 @@ button {
   width: min(480px, 100%);
 }
 
+.dev-toggle-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  border: 1px dashed rgba(39, 93, 245, 0.4);
+}
+
+.dev-toggle-title {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dev-toggle-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.dev-toggle-button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 10px 8px;
+}
+
+.dev-toggle-button.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
 .phone-header,
 .dashboard-header {
   display: flex;
@@ -394,6 +455,60 @@ button {
 
 .dashboard-header {
   border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.dashboard-topbar,
+.admin-light-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: white;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.05);
+}
+
+.admin-light-header h1,
+.admin-light-header p {
+  margin: 0;
+}
+
+.admin-light-header h1 {
+  font-size: 1.45rem;
+}
+
+.admin-light-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.small-brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 0;
+}
+
+.app-title {
+  font-size: 1.2rem;
+}
+
+.logout-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  background: white;
 }
 
 .brand-lockup {
@@ -435,6 +550,27 @@ button {
     white;
 }
 
+.welcome-section {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 24px;
+  background:
+    linear-gradient(160deg, rgba(39, 93, 245, 0.08), rgba(17, 166, 84, 0.06)),
+    white;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.welcome-section h2,
+.welcome-section p {
+  margin: 0;
+}
+
+.welcome-user {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 .choice-grid {
   display: grid;
   gap: 10px;
@@ -471,6 +607,41 @@ button {
 .admin-section {
   display: grid;
   gap: 14px;
+}
+
+.dashboard-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-section-header h3 {
+  margin: 0;
+}
+
+.section-icon-bg {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.wish-bg {
+  background: #fdf2f8;
+  color: #ec4899;
+}
+
+.folder-bg {
+  background: #f5f3ff;
+  color: #8b5cf6;
+}
+
+.complete-bg {
+  background: #ecfdf5;
+  color: #10b981;
 }
 
 .section-title-row {
@@ -527,6 +698,49 @@ button {
   gap: 12px;
   color: var(--text);
   background: white;
+}
+
+.learner-card-surface {
+  text-align: left;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.05);
+}
+
+.course-card-header,
+.course-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wishlist-button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-muted);
+}
+
+.wishlist-button.active {
+  background: #fff1f7;
+  border-color: #f9a8d4;
+  color: #ec4899;
+}
+
+.course-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.small-button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.86rem;
 }
 
 .course-card h4,
@@ -588,6 +802,52 @@ button {
   gap: 12px;
 }
 
+.tabs-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tab-button {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.tab-button.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.catalog-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.dashboard-spacer {
+  height: 56px;
+}
+
+.floating-help-button {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 16px 32px rgba(39, 93, 245, 0.28);
+}
+
 .list-card {
   padding: 16px;
   border-radius: 18px;
@@ -627,6 +887,65 @@ button {
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+}
+
+.menu-close-area {
+  flex: 1;
+  background: rgba(17, 24, 39, 0.25);
+}
+
+.side-menu {
+  width: min(300px, 82%);
+  background: white;
+  border-left: 1px solid rgba(17, 24, 39, 0.08);
+  box-shadow: -12px 0 30px rgba(17, 24, 39, 0.08);
+  padding: 18px;
+  display: grid;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.menu-item,
+.submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  border-radius: 14px;
+  color: var(--text-secondary);
+}
+
+.menu-item:hover,
+.submenu-item:hover {
+  background: var(--surface-alt);
+}
+
+.menu-grow {
+  flex: 1;
+}
+
+.submenu {
+  display: grid;
+  gap: 4px;
+  padding-left: 16px;
 }
 
 .profile-row strong,
@@ -682,6 +1001,51 @@ button {
   border-radius: 22px;
   display: grid;
   gap: 10px;
+}
+
+.mobile-stats-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stat-card-light {
+  background: white;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.stat-card-light span {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.metric-bg-blue {
+  background: #eaf0ff;
+  color: var(--primary);
+}
+
+.metric-bg-violet {
+  background: #f2edff;
+  color: #8b5cf6;
+}
+
+.metric-bg-green {
+  background: #eaf9f0;
+  color: var(--success);
+}
+
+.metric-bg-pink {
+  background: #fff1f7;
+  color: #ec4899;
+}
+
+.metric-icon-inline {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
 }
 
 .stat-icon {
@@ -781,6 +1145,43 @@ small {
   color: var(--text-muted);
 }
 
+.admin-activity-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.activity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.activity-row-border {
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.activity-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.activity-copy strong,
+.activity-copy p {
+  margin: 0;
+}
+
 @media (max-width: 980px) {
   .role-grid,
   .auth-form,
@@ -815,6 +1216,11 @@ small {
 
   .field-row,
   .choice-grid.two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .dev-toggle-row,
+  .mobile-stats-grid {
     grid-template-columns: 1fr;
   }
 
