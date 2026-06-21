@@ -125,7 +125,14 @@ export function LearnerDashboardPage() {
               </div>
 
               <nav className="menu-nav">
-                <button type="button" className="menu-item" onClick={() => setMenuVisible(false)}>
+                <button
+                  type="button"
+                  className="menu-item"
+                  onClick={() => {
+                    setMenuVisible(false);
+                    navigate("/dashboard");
+                  }}
+                >
                   <Home size={18} />
                   <span>Home</span>
                 </button>
@@ -157,7 +164,14 @@ export function LearnerDashboardPage() {
                       <HelpCircle size={16} />
                       <span>Help Page</span>
                     </Link>
-                    <button type="button" className="submenu-item" onClick={() => setMenuVisible(false)}>
+                    <button
+                      type="button"
+                      className="submenu-item"
+                      onClick={() => {
+                        setMenuVisible(false);
+                        navigate("/notifications");
+                      }}
+                    >
                       <Bell size={16} />
                       <span>Notifications</span>
                     </button>

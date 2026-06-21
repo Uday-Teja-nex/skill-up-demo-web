@@ -20,7 +20,7 @@ export function NewsPage() {
         <div className="page-content">
           <div className="article-grid">
             {demoNews.map((item) => (
-              <article key={item.id} className="article-card">
+              <Link key={item.id} to={`/news/${item.id}`} className="article-card interactive-card">
                 <div className="section-title-row compact">
                   <span className="article-type">{item.category}</span>
                   <Newspaper size={14} />
@@ -31,7 +31,7 @@ export function NewsPage() {
                   <Clock3 size={12} />
                   {item.readTime}
                 </small>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

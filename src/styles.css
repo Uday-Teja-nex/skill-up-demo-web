@@ -693,6 +693,16 @@ button {
   border-radius: 22px;
 }
 
+.interactive-card {
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.08);
+  border-color: rgba(39, 93, 245, 0.16);
+}
+
 .course-card {
   display: grid;
   gap: 12px;
@@ -1180,6 +1190,57 @@ small {
 .activity-copy strong,
 .activity-copy p {
   margin: 0;
+}
+
+.detail-stack {
+  gap: 12px;
+}
+
+.notification-card {
+  width: 100%;
+  text-align: left;
+}
+
+.notification-unread {
+  border-color: rgba(39, 93, 245, 0.18);
+  background: #f8fbff;
+}
+
+.notification-copy {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.success-badge {
+  background: #eaf9f0;
+  color: #15803d;
+}
+
+.danger-badge {
+  background: #fff2f2;
+  color: #dc2626;
+}
+
+.info-badge {
+  background: #edf4ff;
+  color: #1d4ed8;
+}
+
+.neutral-badge {
+  background: #f3f4f6;
+  color: #4b5563;
 }
 
 @media (max-width: 980px) {

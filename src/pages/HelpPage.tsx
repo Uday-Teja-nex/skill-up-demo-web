@@ -27,20 +27,20 @@ export function HelpPage() {
           <section className="content-card">
             <h2>Demo support actions</h2>
             <div className="simple-card-list">
-              <div className="list-card static-card">
+              <Link to="/help/faq" className="list-card interactive-card">
                 <div>
                   <span className="course-pill">FAQ</span>
                   <h4>Course access and navigation help</h4>
                 </div>
                 <MessageCircleMore size={18} />
-              </div>
-              <div className="list-card static-card">
+              </Link>
+              <Link to="/help/contact" className="list-card interactive-card">
                 <div>
                   <span className="course-pill">Support</span>
                   <h4>Contact training coordinator</h4>
                 </div>
                 <MessageCircleMore size={18} />
-              </div>
+              </Link>
             </div>
           </section>
         </div>

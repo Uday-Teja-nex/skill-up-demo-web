@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 import { defaultOnboardingData } from "../data/demoData";
 import type { DemoRole, DemoSession, OnboardingFormData } from "../types";
@@ -22,41 +22,46 @@ const SESSION_KEY = "skillup-demo-session";
 const DRAFT_KEY = "skillup-demo-draft";
 const PROGRESS_KEY = "skillup-demo-progress";
 const WISHLIST_KEY = "skillup-demo-wishlist";
+const DEFAULT_PROGRESS: Record<string, number> = {
+  "tailoring-foundations": 65,
+  "tailoring-business": 0,
+  "tailoring-advanced-finishing": 0,
+  "spoken-english-service": 100
+};
+const DEFAULT_WISHLIST = ["tailoring-business"];
 
 const DemoSessionContext = createContext<DemoSessionContextValue | null>(null);
 
+function readStoredValue<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") {
+    return fallback;
+  }
+
+  const storedValue = window.localStorage.getItem(key);
+  if (!storedValue) {
+    return fallback;
+  }
+
+  try {
+    return JSON.parse(storedValue) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 export function DemoSessionProvider({ children }: React.PropsWithChildren) {
-  const [session, setSession] = useState<DemoSession | null>(null);
-  const [onboardingDraft, setOnboardingDraftState] = useState<OnboardingFormData>(
-    defaultOnboardingData()
+  const [session, setSession] = useState<DemoSession | null>(() =>
+    readStoredValue<DemoSession | null>(SESSION_KEY, null)
   );
-  const [courseProgress, setCourseProgress] = useState<Record<string, number>>({
-    "tailoring-foundations": 65,
-    "tailoring-business": 0,
-    "tailoring-advanced-finishing": 0,
-    "spoken-english-service": 100
-  });
-  const [wishlist, setWishlist] = useState<string[]>(["tailoring-business"]);
-
-  useEffect(() => {
-    const storedSession = window.localStorage.getItem(SESSION_KEY);
-    const storedDraft = window.localStorage.getItem(DRAFT_KEY);
-    const storedProgress = window.localStorage.getItem(PROGRESS_KEY);
-    const storedWishlist = window.localStorage.getItem(WISHLIST_KEY);
-
-    if (storedSession) {
-      setSession(JSON.parse(storedSession) as DemoSession);
-    }
-    if (storedDraft) {
-      setOnboardingDraftState(JSON.parse(storedDraft) as OnboardingFormData);
-    }
-    if (storedProgress) {
-      setCourseProgress(JSON.parse(storedProgress) as Record<string, number>);
-    }
-    if (storedWishlist) {
-      setWishlist(JSON.parse(storedWishlist) as string[]);
-    }
-  }, []);
+  const [onboardingDraft, setOnboardingDraftState] = useState<OnboardingFormData>(() =>
+    readStoredValue<OnboardingFormData>(DRAFT_KEY, defaultOnboardingData())
+  );
+  const [courseProgress, setCourseProgress] = useState<Record<string, number>>(() =>
+    readStoredValue<Record<string, number>>(PROGRESS_KEY, DEFAULT_PROGRESS)
+  );
+  const [wishlist, setWishlist] = useState<string[]>(() =>
+    readStoredValue<string[]>(WISHLIST_KEY, DEFAULT_WISHLIST)
+  );
 
   const persistSession = (nextSession: DemoSession | null) => {
     setSession(nextSession);
@@ -154,13 +159,8 @@ export function DemoSessionProvider({ children }: React.PropsWithChildren) {
     window.localStorage.removeItem(PROGRESS_KEY);
     window.localStorage.removeItem(WISHLIST_KEY);
     setOnboardingDraftState(defaultOnboardingData());
-    setCourseProgress({
-      "tailoring-foundations": 65,
-      "tailoring-business": 0,
-      "tailoring-advanced-finishing": 0,
-      "spoken-english-service": 100
-    });
-    setWishlist(["tailoring-business"]);
+    setCourseProgress(DEFAULT_PROGRESS);
+    setWishlist(DEFAULT_WISHLIST);
     setSession(null);
   };
 

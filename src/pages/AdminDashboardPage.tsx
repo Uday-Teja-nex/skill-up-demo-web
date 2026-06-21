@@ -6,7 +6,7 @@ import {
   Settings,
   Users
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { demoCourses, demoLearners } from "../data/demoData";
 import { useDemoSession } from "../state/DemoSessionContext";
@@ -47,7 +47,11 @@ export function AdminDashboardPage() {
             <h1>Admin Control</h1>
             <p>Overview of platform activity</p>
           </div>
-          <button type="button" className="ghost-icon-button">
+          <button
+            type="button"
+            className="ghost-icon-button"
+            onClick={() => navigate("/admin/settings")}
+          >
             <Settings size={20} />
           </button>
         </header>
@@ -66,7 +70,7 @@ export function AdminDashboardPage() {
           <section className="dashboard-section">
             <h3>Quick Actions</h3>
             <div className="simple-card-list">
-              <div className="list-card static-card">
+              <Link to="/admin/users" className="list-card interactive-card">
                 <div className="profile-row">
                   <div className="metric-icon-inline metric-bg-green">
                     <Users size={16} />
@@ -77,8 +81,8 @@ export function AdminDashboardPage() {
                   </div>
                 </div>
                 <ArrowRight size={18} />
-              </div>
-              <div className="list-card static-card">
+              </Link>
+              <Link to="/admin/courses" className="list-card interactive-card">
                 <div className="profile-row">
                   <div className="metric-icon-inline metric-bg-pink">
                     <BookOpen size={16} />
@@ -89,7 +93,7 @@ export function AdminDashboardPage() {
                   </div>
                 </div>
                 <ArrowRight size={18} />
-              </div>
+              </Link>
             </div>
           </section>
 
@@ -97,8 +101,10 @@ export function AdminDashboardPage() {
             <h3>Recent Registrations</h3>
             <div className="content-card admin-activity-card">
               {demoLearners.map((learner, index) => (
-                <div
+                <button
                   key={learner.id}
+                  type="button"
+                  onClick={() => navigate("/admin/users")}
                   className={`activity-row ${index !== demoLearners.length - 1 ? "activity-row-border" : ""}`}
                 >
                   <div className="avatar-placeholder">
@@ -108,7 +114,8 @@ export function AdminDashboardPage() {
                     <strong>{learner.fullName}</strong>
                     <p>{learner.email}</p>
                   </div>
-                </div>
+                  <ArrowRight size={16} />
+                </button>
               ))}
             </div>
           </section>
